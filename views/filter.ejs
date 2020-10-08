@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filter Data</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Hasil Filter Data</h2>
+        <h6>c22</h6>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">String</th>
+                    <th scope="col">Integer</th>
+                    <th scope="col">Float</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Boolean</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% result.forEach((item, index) => { %>
+                <tr>
+                    <th scope="row"><%= index + start +1 %></th>
+                    <td><%= item.string %></td>
+                    <td><%= item.integer %></td>
+                    <td><%= item.float %></td>
+                    <td><%= item.date %></td>
+                    <td><%= item.boolean %></td>
+                    <td>
+                        <a href="edit/<%= //item._id %>" class="btn btn-success">Edit</a>
+                        <a href="delete/<%= //item._id %>" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+              <li class="page-item<%= page == 1 ? ' disabled' : '' %>">
+                <a class="page-link" href="<%= url.replace(`page=${page}`, `page=${page - 1}`) %>" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <% for(let i = 1; i <= pages; i++){ %>
+              <li class="page-item<%= page == i ? ' active' : '' %>"><a class="page-link" href="<%= url.replace(`page=${page}`, `page=${i}`) %>"><%= i %></a></li>
+              <% } %>
+              <li class="page-item<%= page == pages ? ' disabled' : ''%>">
+                <a class="page-link" href="<%= url.replace(`page=${page}`, `page=${Number(page) + 1}`) %>" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        <br>
+        <hr>
+        <br>
+        <h2>Masukan Data yang dicari</h2>
+        <form method="get" target="/filter">
+
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">String</label>
+                <input type="checkbox" name="cstring">
+                <input type="text" placeholder="String" style="margin-left: 20px;" size="50px" name="string">
+                <input type="text" name="page" value="<%= page %>" hidden>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Integer</label>
+                <input type="checkbox" name="cinteger">
+                <input type="text" placeholder="Integer" style="margin-left: 20px;" size="50px" name="integer">
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Float</label>
+                <input type="checkbox" name="cfloat">
+                <input type="text" placeholder="Float" style="margin-left: 20px;" size="50px" name="float">
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Date</label>
+                <input type="checkbox" name="cdate">
+                <span style="margin-left: 20px; padding-top: 10px;">From</span><input type="date"
+                    placeholder="start date" style="margin-left: 20px;" name="startdate">
+                <span style="vertical-align: middle; margin-left: 20px; padding-top: 10px;">to</span>
+                <input type="date" placeholder="end date" style="margin-left: 20px;" name="enddate">
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Boolean</label>
+                <input type="checkbox" name="cboolean">
+                <select name="boolean" style="margin-left: 20px;">
+                    <option selected>Choose the boolean...</option>
+                    <option value="true">True</option>
+                    <option value="false">False</option>
+                </select>
+
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </div>
+        </form>
+
+        <a href="/" class="btn btn-primary">Home</a>
+        <a href="add" class="btn btn-primary">Add Data</a>
+
+    </div>
+</body>
+
+</html>
